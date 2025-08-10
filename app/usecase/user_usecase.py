@@ -7,14 +7,14 @@ class UserUseCase:
         self.repo = repo
 
     def create_user(self,payload: UserCreate) -> str:
-        return self.repo.create(payload.dict())
+        return self.repo.create(payload.model_dump())
     
     def get_user(self, user_id: str) -> Optional[UserOut]:
         doc = self.repo.get(user_id)
         return UserOut(**doc) if doc else None # ** の意味
     
     def update_user(self,user_id: str,patch: UserUpdate) -> bool:
-        data = patch.dict(exclude_unset=True)
+        data = patch.model_dump(exclude_unset=True)
         if not data:
             return True
         return self.repo.update(user_id,data)

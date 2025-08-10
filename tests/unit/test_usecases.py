@@ -13,7 +13,7 @@ def test_create_user_calls_repo_and_returns_id():
     )
     got = uc.create_user(payload)
 
-    repo.create.assert_called_once_with(payload.dict())
+    repo.create.assert_called_once_with(payload.model_dump())
     assert got == "u1"
 
 def test_get_user_converts_dict_to_userout_and_none_path():

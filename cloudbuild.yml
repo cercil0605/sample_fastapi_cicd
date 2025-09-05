@@ -35,7 +35,8 @@ steps:
         "--allow-unauthenticated",
       ]
 
-logging: CLOUD_LOGGING_ONLY
+options:
+  logging: CLOUD_LOGGING_ONLY
 # Save test logs to Google Cloud Storage
 artifacts:
   objects:

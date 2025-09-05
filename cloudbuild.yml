@@ -9,7 +9,7 @@ steps:
       [
         "build",
         "-t",
-        "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/sample-fastapi-cicd-docker:${SHORT_SHA}",
+        "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/sample-fastapi-cicd-docker/backend:${SHORT_SHA}",
         ".",
       ]
   # Docker push to Google Artifact Registry
@@ -17,7 +17,7 @@ steps:
     args:
       [
         "push",
-        "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/sample-fastapi-cicd-docker:${SHORT_SHA}",
+        "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/sample-fastapi-cicd-docker/backend:${SHORT_SHA}",
       ]
   # Deploy to Cloud Run
   - name: google/cloud-sdk
@@ -27,7 +27,7 @@ steps:
         "run",
         "deploy",
         "helloworld-${SHORT_SHA}",
-        "--image=asia-northeast1-docker.pkg.dev/${PROJECT_ID}/sample-fastapi-cicd-docker:${SHORT_SHA}",
+        "--image=asia-northeast1-docker.pkg.dev/${PROJECT_ID}/sample-fastapi-cicd-docker/backend:${SHORT_SHA}",
         "--region",
         "asia-northeast1",
         "--platform",

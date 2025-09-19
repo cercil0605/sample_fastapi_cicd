@@ -6,8 +6,14 @@ from dotenv import load_dotenv
 _db = None
 load_dotenv()
 
+
 def get_db() -> firestore.Client:
     global _db
     if _db is None:
-        _db = firestore.Client(project=os.getenv("FIRESTORE_PROJECT_ID"))
+        if os.getenv("FIRESTORE_EMULATOR_HOST"):
+            # エミュレータに接続
+            _db = firestore.Client()
+        else:
+            # 実際のFirestoreに接続
+            _db = firestore.Client(project=os.getenv("FIRESTORE_PROJECT_ID"))
     return _db

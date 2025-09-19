@@ -7,7 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  CI:
+    name: check-CI
     runs-on: ubuntu-latest
 
     steps:

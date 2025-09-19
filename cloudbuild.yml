@@ -40,6 +40,6 @@ options:
 # Save test logs to Google Cloud Storage
 artifacts:
   objects:
-    location: gs://${_BUCKET_NAME}/
+    location: gs://sample_cicd/
     paths:
       - ${SHORT_SHA}_test_log.xml

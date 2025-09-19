@@ -21,11 +21,12 @@ steps:
       ]
   # Deploy to Cloud Run
   - name: google/cloud-sdk
-    args: [
+    args:
+      [
         "gcloud",
         "run",
         "deploy",
-        "sample_cicd", # <-- ここを固定のサービス名に修正
+        "sample-cicd",
         "--image=asia-northeast1-docker.pkg.dev/${PROJECT_ID}/sample-fastapi-cicd-docker/backend:${SHORT_SHA}",
         "--region",
         "asia-northeast1",

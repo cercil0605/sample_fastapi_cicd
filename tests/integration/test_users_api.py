@@ -98,7 +98,9 @@ def test_users_crud_flow():
 def test_404_paths():
     client = TestClient(app)
     # get
-    assert client.get("/users/999").status_code == 404
+    # testを絶対失敗させる
+    # assert client.get("/users/999").status_code == 404
+    assert client.get("/users/999").status_code == 200
     # update
     assert client.patch("/users/999", json={"name":"X"}).status_code == 404
     # delete

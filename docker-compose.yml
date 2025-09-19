@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - FIRESTORE_EMULATOR_HOST=firestore-emulator:8090
+      - FIRESTORE_PROJECT_ID=sample-cicd
+    depends_on:
+      - firestore-emulator
+
+  firestore-emulator:
+    image: gcr.io/google.com/cloudsdktool/google-cloud-cli:emulators
+    command: gcloud beta emulators firestore start --host-port=0.0.0.0:8090 --project=sample-cicd
+    ports:
+      - "8090:8090"

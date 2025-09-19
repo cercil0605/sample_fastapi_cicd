@@ -37,9 +37,3 @@ steps:
 
 options:
   logging: CLOUD_LOGGING_ONLY
-# # Save test logs to Google Cloud Storage
-# artifacts:
-#   objects:
-#     location: gs://sample_cicd/
-#     paths:
-#       - ${SHORT_SHA}_test_log.xml

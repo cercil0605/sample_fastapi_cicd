@@ -1,0 +1,39 @@
+steps:
+  # Install dependencies
+  - name: python
+    entrypoint: pip
+    args: ["install", "-r", "requirements.txt", "--user"]
+  # Docker Build
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/sample-fastapi-cicd-docker/backend:${SHORT_SHA}",
+        ".",
+      ]
+  # Docker push to Google Artifact Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/sample-fastapi-cicd-docker/backend:${SHORT_SHA}",
+      ]
+  # Deploy to Cloud Run
+  - name: google/cloud-sdk
+    args:
+      [
+        "gcloud",
+        "run",
+        "deploy",
+        "sample-cicd",
+        "--image=asia-northeast1-docker.pkg.dev/${PROJECT_ID}/sample-fastapi-cicd-docker/backend:${SHORT_SHA}",
+        "--region",
+        "asia-northeast1",
+        "--platform",
+        "managed",
+        "--allow-unauthenticated",
+      ]
+
+options:
+  logging: CLOUD_LOGGING_ONLY
